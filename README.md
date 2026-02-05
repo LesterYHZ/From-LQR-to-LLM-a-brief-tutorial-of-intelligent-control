@@ -42,7 +42,9 @@ Since we are doing optimal control, let's first define a cost function
 
 $$J = \int_0^\infty(X^TQX+U^TRU)\;dt$$
 
- LQR, or linear–quadratic regulator, finds the control input by solving the algebraic Riccati equation for $P$: 
+where $Q$ and $R$ are the state and control cost matrices. 
+
+LQR, or linear–quadratic regulator, finds the control input by solving the algebraic Riccati equation for $P$: 
 
 $$A^TP+PA-PBR^{-1}B^TP+Q=0$$
 
@@ -50,7 +52,7 @@ and then the control input can be calculated by
 
 $$U = -R^{-1}B^TPX$$
 
-You may use the [Python Control Systems Library
+You may also use the [Python Control Systems Library
 ](https://github.com/python-control/python-control.git) to implement the control algorithm. 
 
 [LQR_control.ipynb](1.%20LQR%20control/LQR_control.ipynb) in [Chapter 1](1.%20LQR%20control/)'s folder showcases the LQR controller balancing the pendulum upright. 

@@ -91,7 +91,16 @@ Simple, isn't it? And here is how the PPO agent can balance the pendulum after t
 
 ### 2.2 Continuous action
 
+However, only applying constant force to move the cart is not efficient to balance the pendulum. Sometimes we would prefer to decide "move the cart slower or faster" to achieve better pendulum balancing performance. Hence, in this case we train the PPO agent on a continuous action space defined by the amplitude of force applied on the cart, just like how LQR controller works. 
 
+First we need to define a reward function that evaluates the system performance. Let's try
+
+$$r=\begin{cases}
+    &-10, \quad if\;|\phi|>0.5 \\
+    &1-10\phi^2-0.1x^2-0.1\dot{\phi}^2, \quad else
+\end{cases}$$
+
+This means that we are training the agent to keep the pendulum angle within $\pm0.5\deg$, and that the smaller the angle, the position, and angular velocity are, the higher reward we get. Using the cart pole equation of motion we made in Chapter 1, we may build a gym-like environment and train the PPO agent in [Cartpole_RL.ipynb](/2.%20Reinforcement%20learning/Cartpole_RL.ipynb). The result is shown below. 
 
 ![](/Resources/3.%20Cartpole%20RL.png)
 

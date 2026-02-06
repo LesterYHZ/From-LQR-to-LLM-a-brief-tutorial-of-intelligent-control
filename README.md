@@ -128,7 +128,7 @@ Behaviorial cloning is so much easier compared with reinforcement learning, but 
 
 ## 4. Language action model
 
-In the recent years, with the rapid development of large model, more and more studies are focusing on integrating vision, language, and actions, which is called a *[VLA](https://learnopencv.com/vision-language-action-models-lerobot-policy/)* model. We don't really need vision to balance the pendulum, so here we demonstrate a language-action model that controls the system via natural languages. Yes, for a simple task like inverted pendulum, this is definitely "using a canon to kill a fly", but it's still a fun proof of concept. 
+In the recent years, with the rapid development of large model, more and more studies are focusing on integrating vision, language, and actions, which is called a *[VLA](https://learnopencv.com/vision-language-action-models-lerobot-policy/)* model. We don't really need vision to balance the pendulum, so here we demonstrate a language-action model that controls the system via natural languages. Yes, for a simple task like inverted pendulum, this is definitely "killing flies with a cannon", but it's still a fun proof of concept. 
 
 
 ![](/Resources/6.%20Result_dt(0.02)_initial(0.1).png)

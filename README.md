@@ -105,6 +105,7 @@ Simple, isn't it? And here is how the PPO agent can balance the pendulum after t
 
 ### 3.2 Residual reinforcement learning
 
+![](/Resources/5.%20IL+RRL.png)
 
 ## 4. Language action model
 

@@ -96,7 +96,7 @@ However, only applying constant force to move the cart is not efficient to balan
 First we need to define a reward function that evaluates the system performance. Let's try
 
 $$r=\begin{cases}
-    &-10, \quad if\;|\phi|>0.5 \\
+    &-10, \quad if \ |\phi|>0.5 \\
     &1-10\phi^2-0.1x^2-0.1\dot{\phi}^2, \quad else
 \end{cases}$$
 
@@ -134,5 +134,6 @@ In the recent years, with the rapid development of large model, more and more st
 ![](/Resources/6.%20Result_dt(0.02)_initial(0.1).png)
 
 ![](/Resources/7.%20Result_dt(0.1)_initial(0.2).png)
+
 
 ![](/Resources/8.%20Result_dt(0.02)_initial(-0.3).png)

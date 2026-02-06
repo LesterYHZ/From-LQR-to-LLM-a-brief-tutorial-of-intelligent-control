@@ -108,11 +108,11 @@ This means that we are training the agent to keep the pendulum angle within $\pm
 
 ## 3. Imitation learning
 
-Reinforcement learning follows the simple logic of "if you don't succeed, try, try again". But you may have noticed the disadavantages of this method: first, the training take a huge amount of time, and second, the training result highly depends on the design of the reward function. So let's think of an alternative scheme to train an agent: can we directly train the agent to learn from a pro? For example, if we wanna train a learning agent to drive a car, "try, try again" method is almost impossible due to the complexity of the task, but we can let professional drivers to operate the car and record the driver's actions. Then with the data, we may train an agent to directly copy the behavior of the driver, which sounds way more efficient and accessible to train the intelligent model. This process is called "*imitation learning*". 
+Reinforcement learning follows the simple logic of "if you don't succeed, try, try again". But you may have noticed the disadavantages of this method: first, the training take a huge amount of time, and second, the training result highly depends on the design of the reward function. So let's think of an alternative scheme to train an agent: can we directly train the agent to learn from a pro? For example, if we wanna train a learning agent to drive a car, "try, try again" method is almost impossible due to the complexity of the task, but we can let professional drivers to operate the car and record the driver's actions. Then with the data, we may train an agent to directly copy the behavior of the driver, which sounds way more efficient and accessible to train the intelligent model. This process is called "[*imitation learning*](https://smartlabai.medium.com/a-brief-overview-of-imitation-learning-8a8a75c44a9c)". 
 
 ### 3.1 Behavioral cloning
 
-Behavioral cloning is the simplest type of imitation learning. Just like how the name sounds, it directly "clones" the behavior of a pro using the collected data. In this section, we use the LQR controller as our pro of balancing the pole. We run LQR multiple times with various initial conditions and record the system state values along with the calculated control efforts to build the dataset. Since this is a quite simple task, let's just build a neural network to train on the dataset. 
+[Behavioral cloning](https://www.geeksforgeeks.org/deep-learning/behavioral-cloning/) is the simplest type of imitation learning. Just like how the name sounds, it directly "clones" the behavior of a pro using the collected data. In this section, we use the LQR controller as our pro of balancing the pole. We run LQR multiple times with various initial conditions and record the system state values along with the calculated control efforts to build the dataset. Since this is a quite simple task, let's just build a neural network to train on the dataset. 
 
 The neural network approximate the LQR equation mapping the state variables to control input. As shown blow, the network has nearly 100% the same performance as the LQR controller to keep the pendulum upright. 
 
@@ -127,6 +127,9 @@ Behaviorial cloning is so much easier compared with reinforcement learning, but 
 ![](/Resources/5.%20IL+RRL.png)
 
 ## 4. Language action model
+
+In the recent years, with the rapid development of large model, more and more studies are focusing on integrating vision, language, and actions, which is called a *[VLA](https://learnopencv.com/vision-language-action-models-lerobot-policy/)* model. We don't really need vision to balance the pendulum, so here we demonstrate a language-action model that controls the system via natural languages. Yes, for a simple task like inverted pendulum, this is definitely "using a canon to kill a fly", but it's still a fun proof of concept. 
+
 
 ![](/Resources/6.%20Result_dt(0.02)_initial(0.1).png)
 

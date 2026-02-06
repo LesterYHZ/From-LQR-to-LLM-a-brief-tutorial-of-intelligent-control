@@ -1,5 +1,8 @@
 ﻿# From LQR to LLM: a brief tutorial of intelligent control
 
+![](/Resources/-1.%20Headline.png)
+
+---
 Robots are becoming more and more intelligent in these days and ages, thanks to the rapid development of computing units and learning algorithms. This tutorial serves as an amature demonstration of intelligent control evolving from simple optimal control to reinforcemnt learning and eventually to LLM-driven, using the most classic model in control engineering - inverted pendulum. 
 
 
@@ -66,7 +69,7 @@ LQR is a powerful control method for linear systems and thus is quite sufficient
 
 Here we demonstrate reinforcement learning on both discrete and continuous action space. 
 
-### 2.1 Discrete action space
+### 2.1 Discrete action
 
 First let's try to balance the pendulum with only two actions: "*push the cart to the left*" and "*push the cart to the right*". [Gymnasium](https://github.com/Farama-Foundation/Gymnasium.git) provides such an [environment](https://gymnasium.farama.org/environments/classic_control/cart_pole/) called "*CartPole-v1*", in which the observation space includes the four state variables we used in LQR chapter -  cart position ($x$), cart velocity ($\dot{x}$), pendulum tilting angle ($\phi$), and pendulum rotating velocity ($\dot{\phi}$). But instead of finding the force applied to the cart, in this case we only consider moving the cart to the left or right. 
 

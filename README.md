@@ -94,3 +94,22 @@ Simple, isn't it? And here is how the PPO agent can balance the pendulum after t
 
 
 ![](/Resources/3.%20Cartpole%20RL.png)
+
+
+
+## 3. Imitation learning
+
+### 3.1 Behavioral cloning
+
+![](/Resources/4.%20IL.png)
+
+### 3.2 Residual reinforcement learning
+
+
+## 4. Language action model
+
+![](/Resources/6.%20Result_dt(0.02)_initial(0.1).png)
+
+![](/Resources/7.%20Result_dt(0.1)_initial(0.2).png)
+
+![](/Resources/8.%20Result_dt(0.02)_initial(-0.3).png)

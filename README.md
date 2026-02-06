@@ -65,7 +65,7 @@ You may also use the [Python Control Systems Library
 
 ## 2. Reinforcement learning
 
-LQR is a powerful control method for linear systems and thus is quite sufficient to control an inverted pendulum. But to make things more interesting, let's first picture a scenario where we don't have any knowledge about the system model. In this case, all we can do is to try various system inputs and see how the pendulum reacts; the more experience we gain, the better we are able to balance the pendulum. This process is called "*[reinforment learning](https://www.geeksforgeeks.org/machine-learning/what-is-reinforcement-learning/)*".  Typicaly we call the input we try on the system "*action*", and the system feedback "*observation*". The action can be discrete, like "*moving the cart to the left or right*", or be continuous, which is quite similar to a traditional controller, computing the control effort based on the system response. We will also define a "*reward*" to evaluate the system performance under the action we applied. The goal of reinforcement learning is to find a "*policy*" that computes the action so that the system results in the highest possible reward. 
+LQR is a powerful control method for linear systems and thus is quite sufficient to control an inverted pendulum. But to make things more interesting, let's first picture a scenario where we don't have any knowledge about the system model. In this case, all we can do is to try various system inputs and see how the pendulum reacts; the more experience we gain, the better we are able to balance the pendulum. This process is called "*[reinforment learning](https://www.geeksforgeeks.org/machine-learning/what-is-reinforcement-learning/)*".  Typicaly we call the input we try on the system "*action*", and the system feedback "*observation*". The action can be discrete, like "*moving the cart to the left or right*", or be continuous, which is quite similar to a traditional controller, computing the control effort based on the system response. We will also define a "*reward*" to evaluate the system performance under the action we applied. The goal of reinforcement learning is to find a "*policy*" that computes the action so that the system results in the highest possible accumulated reward. 
 
 Here we demonstrate reinforcement learning on both discrete and continuous action space. 
 
@@ -108,11 +108,21 @@ This means that we are training the agent to keep the pendulum angle within $\pm
 
 ## 3. Imitation learning
 
+Reinforcement learning follows the simple logic of "if you don't succeed, try, try again". But you may have noticed the disadavantages of this method: first, the training take a huge amount of time, and second, the training result highly depends on the design of the reward function. So let's think of an alternative scheme to train an agent: can we directly train the agent to learn from a pro? For example, if we wanna train a learning agent to drive a car, "try, try again" method is almost impossible due to the complexity of the task, but we can let professional drivers to operate the car and record the driver's actions. Then with the data, we may train an agent to directly copy the behavior of the driver, which sounds way more efficient and accessible to train the intelligent model. This process is called "*imitation learning*". 
+
 ### 3.1 Behavioral cloning
+
+Behavioral cloning is the simplest type of imitation learning. Just like how the name sounds, it directly "clones" the behavior of a pro using the collected data. In this section, we use the LQR controller as our pro of balancing the pole. We run LQR multiple times with various initial conditions and record the system state values along with the calculated control efforts to build the dataset. Since this is a quite simple task, let's just build a neural network to train on the dataset. 
+
+The neural network approximate the LQR equation mapping the state variables to control input. As shown blow, the network has nearly 100% the same performance as the LQR controller to keep the pendulum upright. 
 
 ![](/Resources/4.%20IL.png)
 
 ### 3.2 Residual reinforcement learning
+
+Behaviorial cloning is so much easier compared with reinforcement learning, but a limitation of this method is "*covariate shift*", which is a phenomenon that the distribution of the independent variables in the training and testing data is different. So the performance of a behaviorial cloning agent highly depends on the quality of the dataset and its range of operation. So what if we need the agent to function in wider scenarios? Usually we may apply reinforcement learning to fine-tune the already trained imitation learning agent in order to explore new possible policies and widen its range of operation. But here we want to demonstrate another use of reinforcement learning called [*residual reinforcement learning*](https://ieeexplore.ieee.org/document/8794127), which, instead of learning to directly find the actions, computes the necessary corrections to the actions. A pro's behavior may not be optimal, so we want to apply residual reinforcement learning to "correct" the actions computed by the behavioral cloning agent so that we can maximize the reward we defined. 
+
+[Imitation_learning+Residual_learning.ipynb](/3.%20Imitation%20learning/Imitation_learning+Residual_learning.ipynb) is an example of using residual reinforcement learning to lower the overshoot and undershoot of the behavioral cloning agent imitating the LQR controller. By adding the oscillation and overshoot terms in the reward function, we are able to train a residual reinforcement learning agent that corrects the control effort to receive lower overshoot and eliminate undershoot in the pendulum angle. 
 
 ![](/Resources/5.%20IL+RRL.png)
 

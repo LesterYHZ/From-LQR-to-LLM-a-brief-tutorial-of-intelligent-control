@@ -55,19 +55,39 @@ $$U = -R^{-1}B^TPX$$
 You may also use the [Python Control Systems Library
 ](https://github.com/python-control/python-control.git) to implement the control algorithm. 
 
-[LQR_control.ipynb](1.%20LQR%20control/LQR_control.ipynb) in [Chapter 1](1.%20LQR%20control/)'s folder showcases the LQR controller balancing the pendulum upright. 
+[LQR_control.ipynb](1.%20LQR%20control/LQR_control.ipynb) showcases the LQR controller balancing the pendulum upright. 
 
 ![](Resources/1.%20LQR.png)
 
 
-
 ## 2. Reinforcement learning
 
+LQR is a powerful control method for linear systems and thus is quite sufficient to control an inverted pendulum. But to make things more interesting, let's first picture a scenario where we don't have any knowledge about the system model. In this case, all we can do is to try various system inputs and see how the pendulum reacts; the more experience we gain, the better we are able to balance the pendulum. This process is called "*[reinforment learning](https://www.geeksforgeeks.org/machine-learning/what-is-reinforcement-learning/)*".  Typicaly we call the input we try on the system "*action*", and the system feedback "*observation*". The action can be discrete, like "*moving the cart to the left or right*", or be continuous, which is quite similar to a traditional controller, computing the control effort based on the system response. We will also define a "*reward*" to evaluate the system performance under the action we applied. The goal of reinforcement learning is to find a "*policy*" that computes the action so that the system results in the highest possible reward. 
+
+Here we demonstrate reinforcement learning on both discrete and continuous action space. 
+
 ### 2.1 Discrete action space
+
+First let's try to balance the pendulum with only two actions: "*push the cart to the left*" and "*push the cart to the right*". [Gymnasium](https://github.com/Farama-Foundation/Gymnasium.git) provides such an [environment](https://gymnasium.farama.org/environments/classic_control/cart_pole/) called "*CartPole-v1*", in which the observation space includes the four state variables we used in LQR chapter -  cart position ($x$), cart velocity ($\dot{x}$), pendulum tilting angle ($\phi$), and pendulum rotating velocity ($\dot{\phi}$). But instead of finding the force applied to the cart, in this case we only consider moving the cart to the left or right. 
+
+In [Gym_cartpole.ipynb](2.%20Reinforcement%20learning/Gym_cartpole.ipynb), we applied [PPO](https://huggingface.co/blog/deep-rl-ppo), or proximal policy optimization, which is probably by far the most powerful reinforcement learning algorithm. You may easily build a PPO agent like playing Legos using [Stable Baselines3](https://github.com/DLR-RM/stable-baselines3.git), which contains multiple reliable implementations of differentl reinforcement learning algorithm. It only takes six lines of code to train the agent: 
+
+```Python
+import gymnasium as gym
+from stable_baselines3 import PPO
+from stable_baselines3.common.env_util import make_vec_env
+
+vec_env = make_vec_env("CartPole-v1", n_envs=4)
+model = PPO("MlpPolicy", vec_env, verbose=1)
+model.learn(total_timesteps=25000)
+```
+Simple, isn't it? And here is how the PPO agent can balance the pendulum after training: 
 
 ![Gym cartpole RL](/Resources/2.%20Gym_cartpole.gif)
 
 
 ### 2.2 Continuous action
+
+
 
 ![](/Resources/3.%20Cartpole%20RL.png)
